@@ -1,0 +1,16 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "{90236C87-4E7A-6045-5AF0-558EC89F98D6}",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "Tetris3D",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine"
+			]
+		}
+	]
+}
