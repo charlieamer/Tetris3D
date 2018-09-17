@@ -30,6 +30,8 @@ void ABaseShape::BeginPlay()
 	}
 	ShapeStart = *TObjectIterator<APlayerStart>();
 	BlockSize = (Cast<ATetrisGameState>(GetWorld()->GetGameState()))->GetBlockSize();
+	DropSpeed = (Cast<ATetrisGameState>(GetWorld()->GetGameState()))->GetDropSpeed();
+	LastTimeDropped = GetWorld()->GetTimeSeconds();
 
 	for (FIntVector ShapeBlock : Shape)
 	{
@@ -44,44 +46,83 @@ void ABaseShape::BeginPlay()
 		Mesh->SetRelativeScale3D(Scale);
 		Mesh->SetRelativeLocation(FVector(ShapeBlock) * BlockSize);
 	}
+
+	SetStartingPosition();
+}
+
+void ABaseShape::SetStartingPosition()
+{
+	int HighestZ = -100;
+	for (FIntVector ShapeBlock : Shape)
+	{
+		if (ShapeBlock.Z > HighestZ)
+		{
+			HighestZ = ShapeBlock.Z;
+		}
+	}
+	if (ensure(HighestZ != -100))
+	{
+		Position = FIntVector(
+			(Cast<ATetrisGameState>(GetWorld()->GetGameState()))->GetSizeX() / 2,
+			(Cast<ATetrisGameState>(GetWorld()->GetGameState()))->GetSizeY() / 2,
+			(Cast<ATetrisGameState>(GetWorld()->GetGameState()))->GetSizeZ() - HighestZ - 1
+		);
+		if (!IsValidPosition())
+		{
+			Destroy();
+			UE_LOG(LogTemp, Error, TEXT("GAME OVER"));
+		}
+	}
 }
 
 void ABaseShape::MoveShapeXP()
 {
-	TryMoveShape(FIntVector(1, 0, 0));
+	Server_TryMoveShape(FIntVector(1, 0, 0));
 }
 
 void ABaseShape::MoveShapeXN()
 {
-	TryMoveShape(FIntVector(-1, 0, 0));
+	Server_TryMoveShape(FIntVector(-1, 0, 0));
 }
 
 void ABaseShape::MoveShapeYP()
 {
-	TryMoveShape(FIntVector(0, -1, 0));
+	Server_TryMoveShape(FIntVector(0, -1, 0));
 }
 
 void ABaseShape::MoveShapeYN()
 {
-	TryMoveShape(FIntVector(0, 1, 0));
+	Server_TryMoveShape(FIntVector(0, 1, 0));
 }
 
-void ABaseShape::TryMoveShape(FIntVector Amount)
+void ABaseShape::DropOneLevel()
+{
+	LastTimeDropped = GetWorld()->GetTimeSeconds();
+	if (!TryMoveShape(FIntVector(0, 0, -1)))
+	{
+		Destroy();
+	}
+}
+bool ABaseShape::Server_TryMoveShape_Validate(FIntVector Amount)
+{
+	return Amount.Z == 0 && Amount.X >= -1 && Amount.X <= 1 && Amount.Y >= -1 && Amount.Y <= 1;
+}
+
+void ABaseShape::Server_TryMoveShape_Implementation(FIntVector Amount)
+{
+	TryMoveShape(Amount);
+}
+
+bool ABaseShape::TryMoveShape(FIntVector Amount)
 {
 	Position += Amount;
 	if (!IsValidPosition()) {
 		Position -= Amount;
+		return false;
 	}
 	else {
-		SetActorLocation(UpdateWorldLocation());
+		return true;
 	}
-}
-
-FVector ABaseShape::UpdateWorldLocation()
-{
-	FVector LocalLocation = FVector(Position) * BlockSize;
-	WorldLocation = ShapeStart->GetActorTransform().TransformPosition(LocalLocation);
-	return WorldLocation;
 }
 
 bool ABaseShape::IsValidPosition()
@@ -99,6 +140,14 @@ bool ABaseShape::IsValidPosition()
 void ABaseShape::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	if (HasAuthority() && GetWorld()->GetTimeSeconds() - LastTimeDropped > 1.0f / DropSpeed)
+	{
+		DropOneLevel();
+	}
+	if (!FPlatformProperties::IsServerOnly())
+	{
+		SetActorLocation(GetWorldLocation());
+	}
 }
 
 // Called to bind functionality to input
@@ -113,6 +162,7 @@ void ABaseShape::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 
 FVector ABaseShape::GetWorldLocation()
 {
-	return WorldLocation;
+	FVector LocalLocation = FVector(Position) * BlockSize;
+	return ShapeStart->GetActorTransform().TransformPosition(LocalLocation);;
 }
 

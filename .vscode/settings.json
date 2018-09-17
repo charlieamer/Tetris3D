@@ -1,0 +1,10 @@
+{
+	"files.exclude": {
+		"C:/Users/ACER/Documents/GitHub/Tetris3D/.git": true,
+		"C:/Users/ACER/Documents/GitHub/Tetris3D/.vs": true,
+		"C:/Users/ACER/Documents/GitHub/Tetris3D/.vscode": true,
+		"C:/Users/ACER/Documents/GitHub/Tetris3D/Content": true,
+		"C:/Users/ACER/Documents/GitHub/Tetris3D/Intermediate": true,
+		"C:/Users/ACER/Documents/GitHub/Tetris3D/Saved": true
+	}
+}

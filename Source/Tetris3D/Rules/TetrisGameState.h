@@ -17,12 +17,14 @@ class TETRIS3D_API ATetrisGameState : public AGameStateBase
 	int SizeX, SizeY, SizeZ;
 	int GetIndex(int X, int Y, int Z);
 	float BlockSize;
+	float DropSpeed;
 public:
-	void Initialize(int SizeX, int SizeY, int SizeZ, float BlockSize);
+	void Initialize(int SizeX, int SizeY, int SizeZ, float BlockSize, float DropSpeed);
 	bool IsValidPosition(int X, int Y, int Z);
 	bool IsValidPosition(const FIntVector& Position);
 	float GetBlockSize();
 	int GetSizeX();
 	int GetSizeY();
 	int GetSizeZ();
+	float GetDropSpeed();
 };

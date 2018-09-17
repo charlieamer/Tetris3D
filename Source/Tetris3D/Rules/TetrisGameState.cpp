@@ -14,12 +14,13 @@ int ATetrisGameState::GetIndex(int X, int Y, int Z)
 	}
 }
 
-void ATetrisGameState::Initialize(int SizeX, int SizeY, int SizeZ, float BlockSize)
+void ATetrisGameState::Initialize(int SizeX, int SizeY, int SizeZ, float BlockSize, float DropSpeed)
 {
 	this->SizeX = SizeX;
 	this->SizeY = SizeY;
 	this->SizeZ = SizeZ;
 	this->BlockSize = BlockSize;
+	this->DropSpeed = DropSpeed;
 	bool* Mem = new bool[SizeX * SizeY * SizeZ];
 	for (int i = 0; i < SizeX * SizeY * SizeZ; i++)
 	{
@@ -58,3 +59,7 @@ int ATetrisGameState::GetSizeZ()
 	return SizeZ;
 }
 
+float ATetrisGameState::GetDropSpeed()
+{
+	return DropSpeed;
+}

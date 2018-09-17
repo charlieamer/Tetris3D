@@ -18,8 +18,7 @@ void ATetrisCamera::UpdateCamera()
 		);
 		FRotator Rotation = FRotationMatrix::MakeFromX(-Location).Rotator();
 
-		UCameraComponent *CameraComponent = StaticCast<UCameraComponent*>(GetComponentByClass(UCameraComponent::StaticClass()));
-		CameraComponent->SetRelativeLocationAndRotation(Location, Rotation);
+		GetCameraComponent()->SetRelativeLocationAndRotation(Location, Rotation);
 	}
 }
 

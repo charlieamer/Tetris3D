@@ -12,7 +12,8 @@ class TETRIS3D_API ABaseShape : public APawn
 	GENERATED_BODY()
 
 	FIntVector Position = FIntVector(0, 0, 0);
-	FVector WorldLocation;
+	float DropSpeed;
+	float LastTimeDropped;
 
 public:
 	// Sets default values for this pawn's properties
@@ -35,9 +36,12 @@ protected:
 	UFUNCTION()
 	void MoveShapeYN();
 
-	void TryMoveShape(FIntVector Amount);
+	UFUNCTION(Server, Reliable, WithValidation)
+	void Server_TryMoveShape(FIntVector Amount);
 
-	FVector UpdateWorldLocation();
+	bool Server_TryMoveShape_Validate(FIntVector Amount);
+
+	bool TryMoveShape(FIntVector Amount);
 
 	bool IsValidPosition();
 
@@ -45,6 +49,9 @@ protected:
 	TArray<FIntVector> Shape;
 
 	class APlayerStart* ShapeStart;
+
+	void SetStartingPosition();
+	void DropOneLevel();
 
 public:	
 	// Called every frame

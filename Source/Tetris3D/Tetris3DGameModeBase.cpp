@@ -8,7 +8,7 @@
 void ATetris3DGameModeBase::InitGameState()
 {
 	Super::InitGameState();
-	GetTetrisState()->Initialize(10, 10, 10, 100);
+	GetTetrisState()->Initialize(10, 10, 10, 100, 1);
 }
 
 ATetris3DGameModeBase::ATetris3DGameModeBase() : Super()

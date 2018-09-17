@@ -17,7 +17,7 @@ void ATetrisPlayerController::BeginPlay()
 		FVector Transformed(
 			GameState->GetSizeX() / 2 * GameState->GetBlockSize(),
 			GameState->GetSizeY() / 2 * GameState->GetBlockSize(),
-			0
+			GameState->GetSizeZ() / 3 * GameState->GetBlockSize()
 		);
 		TetrisPlayerCamera = GetWorld()->SpawnActor<ATetrisCamera>(
 			CameraController_BP,
