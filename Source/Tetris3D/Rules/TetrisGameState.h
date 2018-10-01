@@ -13,7 +13,7 @@ UCLASS()
 class TETRIS3D_API ATetrisGameState : public AGameStateBase
 {
 	GENERATED_BODY()
-	TSharedPtr<bool> Fields;
+	TArray<bool> Fields;
 	int SizeX, SizeY, SizeZ;
 	int GetIndex(int X, int Y, int Z);
 	float BlockSize;
@@ -27,4 +27,5 @@ public:
 	int GetSizeY();
 	int GetSizeZ();
 	float GetDropSpeed();
+	void SetBlockAtPosition(const FIntVector& Position);
 };
