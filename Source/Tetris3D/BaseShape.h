@@ -7,6 +7,8 @@
 #include "BaseShape.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FShapeMovedDelegate);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FShapeInitializedDelegate);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FShapeRotatedDelegate, FVector, Axis);
 
 UCLASS(Blueprintable)
 class TETRIS3D_API ABaseShape : public APawn
@@ -46,6 +48,18 @@ protected:
 	void MoveShapeYP();
 	UFUNCTION()
 	void MoveShapeYN();
+	UFUNCTION()
+	void RotateShapeXP();
+	UFUNCTION()
+	void RotateShapeYP();
+	UFUNCTION()
+	void RotateShapeZP();
+	UFUNCTION()
+	void RotateShapeXN();
+	UFUNCTION()
+	void RotateShapeYN();
+	UFUNCTION()
+	void RotateShapeZN();
 
 	void InitializeShapeMeshes();
 
@@ -55,13 +69,18 @@ protected:
 	UFUNCTION(Server, Reliable, WithValidation)
 	void Server_TryMoveShape(FIntVector Amount);
 
+	UFUNCTION(Server, Reliable, WithValidation)
+	void Server_TryRotateShape(FIntVector Axis, int Amount);
+
 	bool Server_TryMoveShape_Validate(FIntVector Amount);
+	bool Server_TryRotateShape_Validate(FIntVector Axis, int Amount);
+	void DoRotateShape(FIntVector Axis, int Amount);
 
 	bool TryMoveShape(FIntVector Amount);
 
 	bool IsValidPosition();
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditAnywhere)
 	TArray<FIntVector> Shape;
 
 	UPROPERTY()
@@ -76,6 +95,11 @@ protected:
 	void ApplyShape();
 
 	class ATetrisGameState* GameState;
+
+	UFUNCTION()
+	void ParentShapeMoved();
+	UFUNCTION()
+	void ParentShapeRotated(FVector Axis);
 
 public:	
 	// Called every frame
@@ -94,4 +118,10 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FShapeMovedDelegate ShapeMoved;
+
+	UPROPERTY(BlueprintAssignable)
+	FShapeInitializedDelegate ShapeInitialized;
+
+	UPROPERTY(BlueprintAssignable)
+	FShapeRotatedDelegate ShapeRotated;
 };

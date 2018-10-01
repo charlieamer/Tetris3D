@@ -24,12 +24,17 @@ void ABaseShape::SetParentShape(ABaseShape* InParentShape)
 	ParentShape = InParentShape;
 	Shape = InParentShape->Shape;
 	bIsShadow = true;
+	InitializeShapeMeshes();
 	SetPositionAsShadow();
+	InParentShape->ShapeMoved.AddDynamic(this, &ABaseShape::ParentShapeMoved);
+	InParentShape->ShapeRotated.AddDynamic(this, &ABaseShape::ParentShapeRotated);
+	ShapeInitialized.Broadcast();
 }
 
 // Called when the game starts or when spawned
 void ABaseShape::BeginPlay()
 {
+	Super::BeginPlay();
 	if (!ensure(MeshToSpawn))
 	{
 		Destroy();
@@ -46,8 +51,8 @@ void ABaseShape::BeginPlay()
 		InitializeShapeMeshes();
 		ABaseShape* Shadow = GetWorld()->SpawnActor<ABaseShape>(ShadowBaseShapeToSpawn, GetTransform());
 		Shadow->SetParentShape(this);
+		ShapeInitialized.Broadcast();
 	}
-	Super::BeginPlay();
 }
 
 void ABaseShape::InitializeShapeMeshes()
@@ -63,7 +68,7 @@ void ABaseShape::InitializeShapeMeshes()
 		FVector Bounds = BoundingBox.GetSize();
 		FVector Scale = Bounds * (1.0f / BlockSize);
 		Mesh->SetRelativeScale3D(Scale);
-		Mesh->SetRelativeLocation(FVector(ShapeBlock) * BlockSize);
+		Mesh->SetRelativeLocation(FVector(ShapeBlock) * BlockSize - BoundingBox.GetCenter());
 	}
 }
 
@@ -99,14 +104,8 @@ void ABaseShape::SetPositionAsShadow()
 		Destroy();
 		return;
 	}
-	for (Position = ParentShape->GetPosition(); Position.Z > 0; Position.Z--)
-	{
-		if (!IsValidPosition())
-		{
-			Position.Z++;
-			break;
-		}
-	}
+	for (Position = ParentShape->GetPosition(); Position.Z >= 0 && IsValidPosition(); Position.Z--);
+	Position.Z++;
 }
 
 void ABaseShape::MoveShapeXP()
@@ -129,6 +128,36 @@ void ABaseShape::MoveShapeYN()
 	Server_TryMoveShape(FIntVector(0, 1, 0));
 }
 
+void ABaseShape::RotateShapeXP()
+{
+	Server_TryRotateShape(FIntVector(1, 0, 0), 1);
+}
+
+void ABaseShape::RotateShapeYP()
+{
+	Server_TryRotateShape(FIntVector(0, 1, 0), 1);
+}
+
+void ABaseShape::RotateShapeZP()
+{
+	Server_TryRotateShape(FIntVector(0, 0, 1), 1);
+}
+
+void ABaseShape::RotateShapeXN()
+{
+	Server_TryRotateShape(FIntVector(1, 0, 0), -1);
+}
+
+void ABaseShape::RotateShapeYN()
+{
+	Server_TryRotateShape(FIntVector(0, 1, 0), -1);
+}
+
+void ABaseShape::RotateShapeZN()
+{
+	Server_TryRotateShape(FIntVector(0, 0, 1), -1);
+}
+
 void ABaseShape::DropOneLevel()
 {
 	LastTimeDropped = GetWorld()->GetTimeSeconds();
@@ -148,9 +177,58 @@ void ABaseShape::ApplyShape()
 	}
 }
 
+void ABaseShape::ParentShapeMoved()
+{
+	SetPositionAsShadow();
+	ShapeMoved.Broadcast();
+}
+
+void ABaseShape::ParentShapeRotated(FVector Axis)
+{
+	Shape = ParentShape->Shape;
+	SetPositionAsShadow();
+	ShapeRotated.Broadcast(Axis);
+	ShapeMoved.Broadcast();
+}
+
 bool ABaseShape::Server_TryMoveShape_Validate(FIntVector Amount)
 {
 	return Amount.Z == 0 && Amount.X >= -1 && Amount.X <= 1 && Amount.Y >= -1 && Amount.Y <= 1;
+}
+
+bool ABaseShape::Server_TryRotateShape_Validate(FIntVector Axis, int Amount)
+{
+	return ((Axis.X == 1 && Axis.Y == 0 && Axis.Z == 0) ||
+			(Axis.X == 0 && Axis.Y == 1 && Axis.Z == 0) ||
+			(Axis.X == 0 && Axis.Y == 0 && Axis.Z == 1)) &&
+		(Amount == 1 || Amount == -1);
+}
+
+void ABaseShape::DoRotateShape(FIntVector Axis, int Amount)
+{
+	for (int i = 0; i < Shape.Num(); i++)
+	{
+		FVector CurrentBlock(Shape[i]);
+		CurrentBlock = CurrentBlock.RotateAngleAxis(90.0f * (float)Amount, FVector(Axis));
+		Shape[i] = FIntVector(
+			FMath::RoundToFloat(CurrentBlock.X),
+			FMath::RoundToFloat(CurrentBlock.Y),
+			FMath::RoundToFloat(CurrentBlock.Z)
+		);
+	}
+}
+
+void ABaseShape::Server_TryRotateShape_Implementation(FIntVector Axis, int Amount)
+{
+	DoRotateShape(Axis, Amount);
+	if (!IsValidPosition())
+	{
+		DoRotateShape(Axis, -Amount);
+	}
+	else
+	{
+		ShapeRotated.Broadcast(FVector(Axis * Amount));
+	}
 }
 
 void ABaseShape::Server_TryMoveShape_Implementation(FIntVector Amount)
@@ -185,12 +263,12 @@ bool ABaseShape::IsValidPosition()
 void ABaseShape::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (bIsShadow && !ParentShape->IsValidLowLevel())
+	if (bIsShadow && (!ParentShape->IsValidLowLevel() || ParentShape->bWasApplied))
 	{
 		Destroy();
 		return;
 	}
-	if (!bWasApplied)
+	if (!bWasApplied && !bIsShadow)
 	{
 		DropSpeed = GameState->GetDropSpeed();
 		float NextDropTime = 1.0f / DropSpeed;
@@ -210,6 +288,12 @@ void ABaseShape::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 	PlayerInputComponent->BindAction("MoveBlockX-", EInputEvent::IE_Pressed, this, &ABaseShape::MoveShapeXN);
 	PlayerInputComponent->BindAction("MoveBlockY+", EInputEvent::IE_Pressed, this, &ABaseShape::MoveShapeYP);
 	PlayerInputComponent->BindAction("MoveBlockY-", EInputEvent::IE_Pressed, this, &ABaseShape::MoveShapeYN);
+	PlayerInputComponent->BindAction("RotateBlockX+", EInputEvent::IE_Pressed, this, &ABaseShape::RotateShapeXP);
+	PlayerInputComponent->BindAction("RotateBlockY+", EInputEvent::IE_Pressed, this, &ABaseShape::RotateShapeYP);
+	PlayerInputComponent->BindAction("RotateBlockZ+", EInputEvent::IE_Pressed, this, &ABaseShape::RotateShapeZP);
+	PlayerInputComponent->BindAction("RotateBlockX-", EInputEvent::IE_Pressed, this, &ABaseShape::RotateShapeXN);
+	PlayerInputComponent->BindAction("RotateBlockY-", EInputEvent::IE_Pressed, this, &ABaseShape::RotateShapeYN);
+	PlayerInputComponent->BindAction("RotateBlockZ-", EInputEvent::IE_Pressed, this, &ABaseShape::RotateShapeZN);
 }
 
 FVector ABaseShape::GetWorldLocation()
