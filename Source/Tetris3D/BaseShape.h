@@ -48,6 +48,13 @@ protected:
 	void MoveShapeYP();
 	UFUNCTION()
 	void MoveShapeYN();
+
+	void MoveShapeWithRotation(FIntVector Amount, float RotationZ);
+	void MoveShapeWithRotation(FIntVector Amount);
+
+	UFUNCTION(Server, Reliable, WithValidation)
+	void Server_TryMoveShape(FIntVector Amount);
+
 	UFUNCTION()
 	void RotateShapeXP();
 	UFUNCTION()
@@ -61,16 +68,16 @@ protected:
 	UFUNCTION()
 	void RotateShapeZN();
 
+	UFUNCTION(Server, Reliable, WithValidation)
+	void Server_TryRotateShape(FIntVector Axis, int Amount);
+
+	void RotateShapeWithRotation(FIntVector Axis, int Amount);
+	void RotateShapeWithRotation(FIntVector Axis, int Amount, float RotationZ);
+
 	void InitializeShapeMeshes();
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<ABaseShape> ShadowBaseShapeToSpawn;
-
-	UFUNCTION(Server, Reliable, WithValidation)
-	void Server_TryMoveShape(FIntVector Amount);
-
-	UFUNCTION(Server, Reliable, WithValidation)
-	void Server_TryRotateShape(FIntVector Axis, int Amount);
 
 	bool Server_TryMoveShape_Validate(FIntVector Amount);
 	bool Server_TryRotateShape_Validate(FIntVector Axis, int Amount);
@@ -109,7 +116,10 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	UPROPERTY(EditDefaultsOnly)
-	UStaticMesh* MeshToSpawn;
+	class UStaticMesh* MeshToSpawn;
+
+	UPROPERTY(EditDefaultsOnly)
+	class UMaterialInstance* MaterialToUse;
 
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	FVector GetWorldLocation();

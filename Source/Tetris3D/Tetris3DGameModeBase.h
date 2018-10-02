@@ -19,6 +19,15 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly)
 	TArray<TSubclassOf<class ABaseShape>> PossibleShapes;
+
+	UPROPERTY(EditDefaultsOnly)
+	int TerrainSizeX = 5;
+	UPROPERTY(EditDefaultsOnly)
+	int TerrainSizeY = 5;
+	UPROPERTY(EditDefaultsOnly)
+	int TerrainSizeZ = 10;
+	UPROPERTY(EditDefaultsOnly)
+	float BlockSize = 100.0f;
 public:
 	void InitGameState() override;
 	ATetris3DGameModeBase();

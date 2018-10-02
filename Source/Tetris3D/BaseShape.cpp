@@ -3,9 +3,10 @@
 #include "BaseShape.h"
 #include "Rules/TetrisGameState.h"
 #include <Components/StaticMeshComponent.h>
-#include <Rules/TetrisGameState.h>
 #include <GameFramework/PlayerStart.h>
 #include <Tetris3DGameModeBase.h>
+#include <TetrisStatics.h>
+#include <TetrisPlayerState.h>
 
 // Sets default values
 ABaseShape::ABaseShape() : Super()
@@ -69,6 +70,7 @@ void ABaseShape::InitializeShapeMeshes()
 		FVector Scale = Bounds * (1.0f / BlockSize);
 		Mesh->SetRelativeScale3D(Scale);
 		Mesh->SetRelativeLocation(FVector(ShapeBlock) * BlockSize - BoundingBox.GetCenter());
+		Mesh->SetMaterial(0, MaterialToUse);
 	}
 }
 
@@ -99,7 +101,7 @@ void ABaseShape::SetStartingPosition()
 
 void ABaseShape::SetPositionAsShadow()
 {
-	if (!ParentShape->IsValidPosition())
+	if (ParentShape == nullptr || !ParentShape->IsValidPosition())
 	{
 		Destroy();
 		return;
@@ -110,52 +112,90 @@ void ABaseShape::SetPositionAsShadow()
 
 void ABaseShape::MoveShapeXP()
 {
-	Server_TryMoveShape(FIntVector(1, 0, 0));
+	MoveShapeWithRotation(FIntVector(1, 0, 0));
 }
 
 void ABaseShape::MoveShapeXN()
 {
-	Server_TryMoveShape(FIntVector(-1, 0, 0));
+	MoveShapeWithRotation(FIntVector(-1, 0, 0));
 }
 
 void ABaseShape::MoveShapeYP()
 {
-	Server_TryMoveShape(FIntVector(0, -1, 0));
+	MoveShapeWithRotation(FIntVector(0, -1, 0));
 }
 
 void ABaseShape::MoveShapeYN()
 {
-	Server_TryMoveShape(FIntVector(0, 1, 0));
+	MoveShapeWithRotation(FIntVector(0, 1, 0));
+}
+
+void ABaseShape::MoveShapeWithRotation(FIntVector Amount, float RotationZ)
+{
+	float Quadrant = GetRotationQuadrant(RotationZ);
+	FVector RotatedAmount = FVector(Amount).RotateAngleAxis(90.0f * Quadrant, FVector(0, 0, 1));
+	Server_TryMoveShape(FIntVector(
+		FMath::RoundToInt(RotatedAmount.X),
+		FMath::RoundToInt(RotatedAmount.Y),
+		FMath::RoundToInt(RotatedAmount.Z)
+	));
+}
+
+void ABaseShape::MoveShapeWithRotation(FIntVector Amount)
+{
+	if (ensure(GetController()))
+	{
+		MoveShapeWithRotation(Amount, Cast<ATetrisPlayerState>(GetController()->PlayerState)->GetRotationZ());
+	}
 }
 
 void ABaseShape::RotateShapeXP()
 {
-	Server_TryRotateShape(FIntVector(1, 0, 0), 1);
+	RotateShapeWithRotation(FIntVector(1, 0, 0), 1);
 }
 
 void ABaseShape::RotateShapeYP()
 {
-	Server_TryRotateShape(FIntVector(0, 1, 0), 1);
+	RotateShapeWithRotation(FIntVector(0, 1, 0), 1);
 }
 
 void ABaseShape::RotateShapeZP()
 {
-	Server_TryRotateShape(FIntVector(0, 0, 1), 1);
+	RotateShapeWithRotation(FIntVector(0, 0, 1), 1);
 }
 
 void ABaseShape::RotateShapeXN()
 {
-	Server_TryRotateShape(FIntVector(1, 0, 0), -1);
+	RotateShapeWithRotation(FIntVector(1, 0, 0), -1);
 }
 
 void ABaseShape::RotateShapeYN()
 {
-	Server_TryRotateShape(FIntVector(0, 1, 0), -1);
+	RotateShapeWithRotation(FIntVector(0, 1, 0), -1);
 }
 
 void ABaseShape::RotateShapeZN()
 {
-	Server_TryRotateShape(FIntVector(0, 0, 1), -1);
+	RotateShapeWithRotation(FIntVector(0, 0, 1), -1);
+}
+
+void ABaseShape::RotateShapeWithRotation(FIntVector Axis, int Amount)
+{
+	if (ensure(GetController()))
+	{
+		RotateShapeWithRotation(Axis, Amount, Cast<ATetrisPlayerState>(GetController()->PlayerState)->GetRotationZ());
+	}
+}
+
+void ABaseShape::RotateShapeWithRotation(FIntVector Axis, int Amount, float RotationZ)
+{
+	float Quadrant = GetRotationQuadrant(RotationZ);
+	FVector RotatedAmount = FVector(Axis).RotateAngleAxis(90.0f * Quadrant, FVector(0, 0, 1));
+	Server_TryRotateShape(FIntVector(
+		FMath::RoundToInt(RotatedAmount.X),
+		FMath::RoundToInt(RotatedAmount.Y),
+		FMath::RoundToInt(RotatedAmount.Z)
+	), Amount);
 }
 
 void ABaseShape::DropOneLevel()
@@ -198,9 +238,9 @@ bool ABaseShape::Server_TryMoveShape_Validate(FIntVector Amount)
 
 bool ABaseShape::Server_TryRotateShape_Validate(FIntVector Axis, int Amount)
 {
-	return ((Axis.X == 1 && Axis.Y == 0 && Axis.Z == 0) ||
-			(Axis.X == 0 && Axis.Y == 1 && Axis.Z == 0) ||
-			(Axis.X == 0 && Axis.Y == 0 && Axis.Z == 1)) &&
+	return ((FMath::Abs(Axis.X) == 1 && Axis.Y == 0 && Axis.Z == 0) ||
+			(Axis.X == 0 && FMath::Abs(Axis.Y) == 1 && Axis.Z == 0) ||
+			(Axis.X == 0 && Axis.Y == 0 && FMath::Abs(Axis.Z) == 1)) &&
 		(Amount == 1 || Amount == -1);
 }
 
@@ -211,9 +251,9 @@ void ABaseShape::DoRotateShape(FIntVector Axis, int Amount)
 		FVector CurrentBlock(Shape[i]);
 		CurrentBlock = CurrentBlock.RotateAngleAxis(90.0f * (float)Amount, FVector(Axis));
 		Shape[i] = FIntVector(
-			FMath::RoundToFloat(CurrentBlock.X),
-			FMath::RoundToFloat(CurrentBlock.Y),
-			FMath::RoundToFloat(CurrentBlock.Z)
+			FMath::RoundToInt(CurrentBlock.X),
+			FMath::RoundToInt(CurrentBlock.Y),
+			FMath::RoundToInt(CurrentBlock.Z)
 		);
 	}
 }
@@ -263,7 +303,7 @@ bool ABaseShape::IsValidPosition()
 void ABaseShape::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (bIsShadow && (!ParentShape->IsValidLowLevel() || ParentShape->bWasApplied))
+	if (bIsShadow && (ParentShape == nullptr || ParentShape->bWasApplied))
 	{
 		Destroy();
 		return;

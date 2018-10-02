@@ -30,7 +30,7 @@ void ATetris3DGameModeBase::SpawnNewShape(class AController* ShapeController)
 void ATetris3DGameModeBase::InitGameState()
 {
 	Super::InitGameState();
-	GetTetrisState()->Initialize(10, 10, 10, 100, 1);
+	GetTetrisState()->Initialize(TerrainSizeX, TerrainSizeY, TerrainSizeZ, BlockSize, 2);
 }
 
 ATetris3DGameModeBase::ATetris3DGameModeBase() : Super()
