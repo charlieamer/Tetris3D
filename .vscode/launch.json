@@ -5,126 +5,126 @@
 			"name": "Tetris3D (Debug)",
 			"request": "launch",
 			"preLaunchTask": "Tetris3D Win64 Debug Build",
-			"program": "C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Binaries\\Win64\\Tetris3D-Win64-Debug.exe",
+			"program": "C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Binaries\\Win64\\Tetris3D-Win64-Debug.exe",
 			"args": [
 			],
-			"cwd": "C:\\Program Files\\Epic Games\\UE_4.20",
+			"cwd": "C:\\UnrealEngine",
 			"stopAtEntry": false,
 			"externalConsole": true,
 			"type": "cppvsdbg",
-			"visualizerFile": "C:\\Program Files\\Epic Games\\UE_4.20\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+			"visualizerFile": "C:\\UnrealEngine\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
 		},
 		{
 			"name": "Tetris3D (DebugGame)",
 			"request": "launch",
 			"preLaunchTask": "Tetris3D Win64 DebugGame Build",
-			"program": "C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Binaries\\Win64\\Tetris3D-Win64-DebugGame.exe",
+			"program": "C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Binaries\\Win64\\Tetris3D-Win64-DebugGame.exe",
 			"args": [
 			],
-			"cwd": "C:\\Program Files\\Epic Games\\UE_4.20",
+			"cwd": "C:\\UnrealEngine",
 			"stopAtEntry": false,
 			"externalConsole": true,
 			"type": "cppvsdbg",
-			"visualizerFile": "C:\\Program Files\\Epic Games\\UE_4.20\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+			"visualizerFile": "C:\\UnrealEngine\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
 		},
 		{
 			"name": "Tetris3D (Development)",
 			"request": "launch",
 			"preLaunchTask": "Tetris3D Win64 Development Build",
-			"program": "C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Binaries\\Win64\\Tetris3D.exe",
+			"program": "C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Binaries\\Win64\\Tetris3D.exe",
 			"args": [
 			],
-			"cwd": "C:\\Program Files\\Epic Games\\UE_4.20",
+			"cwd": "C:\\UnrealEngine",
 			"stopAtEntry": false,
 			"externalConsole": true,
 			"type": "cppvsdbg",
-			"visualizerFile": "C:\\Program Files\\Epic Games\\UE_4.20\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+			"visualizerFile": "C:\\UnrealEngine\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
 		},
 		{
 			"name": "Tetris3D (Shipping)",
 			"request": "launch",
 			"preLaunchTask": "Tetris3D Win64 Shipping Build",
-			"program": "C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Binaries\\Win64\\Tetris3D-Win64-Shipping.exe",
+			"program": "C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Binaries\\Win64\\Tetris3D-Win64-Shipping.exe",
 			"args": [
 			],
-			"cwd": "C:\\Program Files\\Epic Games\\UE_4.20",
+			"cwd": "C:\\UnrealEngine",
 			"stopAtEntry": false,
 			"externalConsole": true,
 			"type": "cppvsdbg",
-			"visualizerFile": "C:\\Program Files\\Epic Games\\UE_4.20\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+			"visualizerFile": "C:\\UnrealEngine\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
 		},
 		{
 			"name": "Tetris3D (Test)",
 			"request": "launch",
 			"preLaunchTask": "Tetris3D Win64 Test Build",
-			"program": "C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Binaries\\Win64\\Tetris3D-Win64-Test.exe",
+			"program": "C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Binaries\\Win64\\Tetris3D-Win64-Test.exe",
 			"args": [
 			],
-			"cwd": "C:\\Program Files\\Epic Games\\UE_4.20",
+			"cwd": "C:\\UnrealEngine",
 			"stopAtEntry": false,
 			"externalConsole": true,
 			"type": "cppvsdbg",
-			"visualizerFile": "C:\\Program Files\\Epic Games\\UE_4.20\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+			"visualizerFile": "C:\\UnrealEngine\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
 		},
 		{
 			"name": "Tetris3DEditor (Debug)",
 			"request": "launch",
 			"preLaunchTask": "Tetris3DEditor Win64 Debug Build",
-			"program": "C:\\Program Files\\Epic Games\\UE_4.20\\Engine\\Binaries\\Win64\\UE4Editor-Win64-Debug.exe",
+			"program": "C:\\UnrealEngine\\Engine\\Binaries\\Win64\\UE4Editor-Win64-Debug.exe",
 			"args": [
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
 				"-debug"
 			],
-			"cwd": "C:\\Program Files\\Epic Games\\UE_4.20",
+			"cwd": "C:\\UnrealEngine",
 			"stopAtEntry": false,
 			"externalConsole": true,
 			"type": "cppvsdbg",
-			"visualizerFile": "C:\\Program Files\\Epic Games\\UE_4.20\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+			"visualizerFile": "C:\\UnrealEngine\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
 		},
 		{
 			"name": "Tetris3DEditor (DebugGame)",
 			"request": "launch",
 			"preLaunchTask": "Tetris3DEditor Win64 DebugGame Build",
-			"program": "C:\\Program Files\\Epic Games\\UE_4.20\\Engine\\Binaries\\Win64\\UE4Editor.exe",
+			"program": "C:\\UnrealEngine\\Engine\\Binaries\\Win64\\UE4Editor.exe",
 			"args": [
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
 				"-debug"
 			],
-			"cwd": "C:\\Program Files\\Epic Games\\UE_4.20",
+			"cwd": "C:\\UnrealEngine",
 			"stopAtEntry": false,
 			"externalConsole": true,
 			"type": "cppvsdbg",
-			"visualizerFile": "C:\\Program Files\\Epic Games\\UE_4.20\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+			"visualizerFile": "C:\\UnrealEngine\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
 		},
 		{
 			"name": "Tetris3DEditor (Development)",
 			"request": "launch",
 			"preLaunchTask": "Tetris3DEditor Win64 Development Build",
-			"program": "C:\\Program Files\\Epic Games\\UE_4.20\\Engine\\Binaries\\Win64\\UE4Editor.exe",
+			"program": "C:\\UnrealEngine\\Engine\\Binaries\\Win64\\UE4Editor.exe",
 			"args": [
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject"
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject"
 			],
-			"cwd": "C:\\Program Files\\Epic Games\\UE_4.20",
+			"cwd": "C:\\UnrealEngine",
 			"stopAtEntry": false,
 			"externalConsole": true,
 			"type": "cppvsdbg",
-			"visualizerFile": "C:\\Program Files\\Epic Games\\UE_4.20\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+			"visualizerFile": "C:\\UnrealEngine\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
 		},
 		{
 			"name": "Generate Project Files",
 			"type": "clr",
 			"request": "launch",
-			"program": "C:\\Program Files\\Epic Games\\UE_4.20\\Engine\\Binaries\\DotNET\\UnrealBuildTool.exe",
+			"program": "C:\\UnrealEngine\\Engine\\Binaries\\DotNET\\UnrealBuildTool.exe",
 			"console": "externalTerminal",
 			"args": [
 				"-projectfiles",
 				"-vscode",
-				"-project=\"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject\"",
+				"-project=\"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject\"",
 				"-game",
 				"-engine"
 			],
 			"internalConsoleOptions": "openOnSessionStart",
-			"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
+			"cwd": "C:\\UnrealEngine"
 		}
 	]
 }

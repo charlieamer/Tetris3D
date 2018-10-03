@@ -6,6 +6,7 @@
 #include <GameFramework/Controller.h>
 #include "BaseShape.h"
 #include "TetrisPlayerState.h"
+#include <Engine/World.h>
 
 void ATetris3DGameModeBase::SpawnNewShape(TArray<AController*> ShapeControllers)
 {
@@ -52,4 +53,5 @@ void ATetris3DGameModeBase::ApplyShape(ABaseShape* Shape)
 		GetTetrisState()->SetBlockAtPosition(Vec + Shape->GetPosition());
 	}
 	SpawnNewShape(Shape->GetController());
+	GetTetrisState()->ShapeApplied.Broadcast(Shape);
 }

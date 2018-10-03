@@ -7,6 +7,9 @@
 #include <Tetris3DGameModeBase.h>
 #include <TetrisStatics.h>
 #include <TetrisPlayerState.h>
+#include <Engine/World.h>
+#include <UObjectIterator.h>
+#include <Materials/MaterialInstance.h>
 
 // Sets default values
 ABaseShape::ABaseShape() : Super()
@@ -65,11 +68,7 @@ void ABaseShape::InitializeShapeMeshes()
 		Mesh->SetStaticMesh(MeshToSpawn);
 		Mesh->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 
-		FBox BoundingBox = MeshToSpawn->GetBoundingBox();
-		FVector Bounds = BoundingBox.GetSize();
-		FVector Scale = Bounds * (1.0f / BlockSize);
-		Mesh->SetRelativeScale3D(Scale);
-		Mesh->SetRelativeLocation(FVector(ShapeBlock) * BlockSize - BoundingBox.GetCenter());
+		SetupBlockSceneComponent(Mesh, BlockSize, ShapeBlock);
 		Mesh->SetMaterial(0, MaterialToUse);
 	}
 }
@@ -101,12 +100,16 @@ void ABaseShape::SetStartingPosition()
 
 void ABaseShape::SetPositionAsShadow()
 {
-	if (ParentShape == nullptr || !ParentShape->IsValidPosition())
+	if (bIsShadow && (ParentShape == nullptr || !ParentShape->IsValidPosition()))
 	{
 		Destroy();
 		return;
 	}
-	for (Position = ParentShape->GetPosition(); Position.Z >= 0 && IsValidPosition(); Position.Z--);
+	else if (ParentShape != nullptr)
+	{
+		Position = ParentShape->GetPosition();
+	}
+	for (; Position.Z >= 0 && IsValidPosition(); Position.Z--);
 	Position.Z++;
 }
 
@@ -198,19 +201,38 @@ void ABaseShape::RotateShapeWithRotation(FIntVector Axis, int Amount, float Rota
 	), Amount);
 }
 
+void ABaseShape::Drop()
+{
+	Server_Drop();
+}
+
+bool ABaseShape::Server_Drop_Validate()
+{
+	return true;
+}
+
+void ABaseShape::Server_Drop_Implementation()
+{
+	bWasDropped = true;
+	SetPositionAsShadow();
+	ApplyShape();
+	ShapeMoved.Broadcast();
+}
+
 void ABaseShape::DropOneLevel()
 {
 	LastTimeDropped = GetWorld()->GetTimeSeconds();
 	if (!TryMoveShape(FIntVector(0, 0, -1)))
 	{
 		ApplyShape();
+		ShapeDone.Broadcast(this);
 	}
 }
 
 void ABaseShape::ApplyShape()
 {
 	ATetris3DGameModeBase* GameMode = Cast<ATetris3DGameModeBase>(GetWorld()->GetAuthGameMode());
-	if (GameMode)
+	if (ensure(GameMode))
 	{
 		GameMode->ApplyShape(this);
 		bWasApplied = true;
@@ -334,12 +356,12 @@ void ABaseShape::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 	PlayerInputComponent->BindAction("RotateBlockX-", EInputEvent::IE_Pressed, this, &ABaseShape::RotateShapeXN);
 	PlayerInputComponent->BindAction("RotateBlockY-", EInputEvent::IE_Pressed, this, &ABaseShape::RotateShapeYN);
 	PlayerInputComponent->BindAction("RotateBlockZ-", EInputEvent::IE_Pressed, this, &ABaseShape::RotateShapeZN);
+	PlayerInputComponent->BindAction("Drop", EInputEvent::IE_Pressed, this, &ABaseShape::Drop);
 }
 
 FVector ABaseShape::GetWorldLocation()
 {
-	FVector LocalLocation = FVector(Position) * BlockSize;
-	return ShapeStart->GetActorTransform().TransformPosition(LocalLocation);
+	return GetBlockWorldLocation(ShapeStart.Get(), BlockSize, Position);
 }
 
 FIntVector ABaseShape::GetPosition()

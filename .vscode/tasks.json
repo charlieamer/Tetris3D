@@ -2,276 +2,6 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "Tetris3D Win32 Debug Build",
-			"group": "build",
-			"command": "Engine\\Build\\BatchFiles\\Build.bat",
-			"args": [
-				"Tetris3D",
-				"Win32",
-				"Debug",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
-				"-waitmutex"
-			],
-			"problemMatcher": "$msCompile",
-			"type": "shell",
-			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
-			}
-		},
-		{
-			"label": "Tetris3D Win32 Debug Rebuild",
-			"group": "build",
-			"command": "Engine\\Build\\BatchFiles\\Build.bat",
-			"args": [
-				"Tetris3D",
-				"Win32",
-				"Debug",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
-				"-waitmutex"
-			],
-			"problemMatcher": "$msCompile",
-			"dependsOn": [
-				"Tetris3D Win32 Debug Clean"
-			],
-			"type": "shell",
-			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
-			}
-		},
-		{
-			"label": "Tetris3D Win32 Debug Clean",
-			"group": "build",
-			"command": "Engine\\Build\\BatchFiles\\Clean.bat",
-			"args": [
-				"Tetris3D",
-				"Win32",
-				"Debug",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
-				"-waitmutex"
-			],
-			"problemMatcher": "$msCompile",
-			"type": "shell",
-			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
-			}
-		},
-		{
-			"label": "Tetris3D Win32 DebugGame Build",
-			"group": "build",
-			"command": "Engine\\Build\\BatchFiles\\Build.bat",
-			"args": [
-				"Tetris3D",
-				"Win32",
-				"DebugGame",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
-				"-waitmutex"
-			],
-			"problemMatcher": "$msCompile",
-			"type": "shell",
-			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
-			}
-		},
-		{
-			"label": "Tetris3D Win32 DebugGame Rebuild",
-			"group": "build",
-			"command": "Engine\\Build\\BatchFiles\\Build.bat",
-			"args": [
-				"Tetris3D",
-				"Win32",
-				"DebugGame",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
-				"-waitmutex"
-			],
-			"problemMatcher": "$msCompile",
-			"dependsOn": [
-				"Tetris3D Win32 DebugGame Clean"
-			],
-			"type": "shell",
-			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
-			}
-		},
-		{
-			"label": "Tetris3D Win32 DebugGame Clean",
-			"group": "build",
-			"command": "Engine\\Build\\BatchFiles\\Clean.bat",
-			"args": [
-				"Tetris3D",
-				"Win32",
-				"DebugGame",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
-				"-waitmutex"
-			],
-			"problemMatcher": "$msCompile",
-			"type": "shell",
-			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
-			}
-		},
-		{
-			"label": "Tetris3D Win32 Development Build",
-			"group": "build",
-			"command": "Engine\\Build\\BatchFiles\\Build.bat",
-			"args": [
-				"Tetris3D",
-				"Win32",
-				"Development",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
-				"-waitmutex"
-			],
-			"problemMatcher": "$msCompile",
-			"type": "shell",
-			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
-			}
-		},
-		{
-			"label": "Tetris3D Win32 Development Rebuild",
-			"group": "build",
-			"command": "Engine\\Build\\BatchFiles\\Build.bat",
-			"args": [
-				"Tetris3D",
-				"Win32",
-				"Development",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
-				"-waitmutex"
-			],
-			"problemMatcher": "$msCompile",
-			"dependsOn": [
-				"Tetris3D Win32 Development Clean"
-			],
-			"type": "shell",
-			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
-			}
-		},
-		{
-			"label": "Tetris3D Win32 Development Clean",
-			"group": "build",
-			"command": "Engine\\Build\\BatchFiles\\Clean.bat",
-			"args": [
-				"Tetris3D",
-				"Win32",
-				"Development",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
-				"-waitmutex"
-			],
-			"problemMatcher": "$msCompile",
-			"type": "shell",
-			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
-			}
-		},
-		{
-			"label": "Tetris3D Win32 Shipping Build",
-			"group": "build",
-			"command": "Engine\\Build\\BatchFiles\\Build.bat",
-			"args": [
-				"Tetris3D",
-				"Win32",
-				"Shipping",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
-				"-waitmutex"
-			],
-			"problemMatcher": "$msCompile",
-			"type": "shell",
-			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
-			}
-		},
-		{
-			"label": "Tetris3D Win32 Shipping Rebuild",
-			"group": "build",
-			"command": "Engine\\Build\\BatchFiles\\Build.bat",
-			"args": [
-				"Tetris3D",
-				"Win32",
-				"Shipping",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
-				"-waitmutex"
-			],
-			"problemMatcher": "$msCompile",
-			"dependsOn": [
-				"Tetris3D Win32 Shipping Clean"
-			],
-			"type": "shell",
-			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
-			}
-		},
-		{
-			"label": "Tetris3D Win32 Shipping Clean",
-			"group": "build",
-			"command": "Engine\\Build\\BatchFiles\\Clean.bat",
-			"args": [
-				"Tetris3D",
-				"Win32",
-				"Shipping",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
-				"-waitmutex"
-			],
-			"problemMatcher": "$msCompile",
-			"type": "shell",
-			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
-			}
-		},
-		{
-			"label": "Tetris3D Win32 Test Build",
-			"group": "build",
-			"command": "Engine\\Build\\BatchFiles\\Build.bat",
-			"args": [
-				"Tetris3D",
-				"Win32",
-				"Test",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
-				"-waitmutex"
-			],
-			"problemMatcher": "$msCompile",
-			"type": "shell",
-			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
-			}
-		},
-		{
-			"label": "Tetris3D Win32 Test Rebuild",
-			"group": "build",
-			"command": "Engine\\Build\\BatchFiles\\Build.bat",
-			"args": [
-				"Tetris3D",
-				"Win32",
-				"Test",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
-				"-waitmutex"
-			],
-			"problemMatcher": "$msCompile",
-			"dependsOn": [
-				"Tetris3D Win32 Test Clean"
-			],
-			"type": "shell",
-			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
-			}
-		},
-		{
-			"label": "Tetris3D Win32 Test Clean",
-			"group": "build",
-			"command": "Engine\\Build\\BatchFiles\\Clean.bat",
-			"args": [
-				"Tetris3D",
-				"Win32",
-				"Test",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
-				"-waitmutex"
-			],
-			"problemMatcher": "$msCompile",
-			"type": "shell",
-			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
-			}
-		},
-		{
 			"label": "Tetris3D Win64 Debug Build",
 			"group": "build",
 			"command": "Engine\\Build\\BatchFiles\\Build.bat",
@@ -279,13 +9,13 @@
 				"Tetris3D",
 				"Win64",
 				"Debug",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
+				"cwd": "C:\\UnrealEngine"
 			}
 		},
 		{
@@ -296,7 +26,7 @@
 				"Tetris3D",
 				"Win64",
 				"Debug",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
@@ -305,7 +35,7 @@
 			],
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
+				"cwd": "C:\\UnrealEngine"
 			}
 		},
 		{
@@ -316,13 +46,13 @@
 				"Tetris3D",
 				"Win64",
 				"Debug",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
+				"cwd": "C:\\UnrealEngine"
 			}
 		},
 		{
@@ -333,13 +63,13 @@
 				"Tetris3D",
 				"Win64",
 				"DebugGame",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
+				"cwd": "C:\\UnrealEngine"
 			}
 		},
 		{
@@ -350,7 +80,7 @@
 				"Tetris3D",
 				"Win64",
 				"DebugGame",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
@@ -359,7 +89,7 @@
 			],
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
+				"cwd": "C:\\UnrealEngine"
 			}
 		},
 		{
@@ -370,13 +100,13 @@
 				"Tetris3D",
 				"Win64",
 				"DebugGame",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
+				"cwd": "C:\\UnrealEngine"
 			}
 		},
 		{
@@ -387,13 +117,13 @@
 				"Tetris3D",
 				"Win64",
 				"Development",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
+				"cwd": "C:\\UnrealEngine"
 			}
 		},
 		{
@@ -404,7 +134,7 @@
 				"Tetris3D",
 				"Win64",
 				"Development",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
@@ -413,7 +143,7 @@
 			],
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
+				"cwd": "C:\\UnrealEngine"
 			}
 		},
 		{
@@ -424,13 +154,13 @@
 				"Tetris3D",
 				"Win64",
 				"Development",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
+				"cwd": "C:\\UnrealEngine"
 			}
 		},
 		{
@@ -441,13 +171,13 @@
 				"Tetris3D",
 				"Win64",
 				"Shipping",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
+				"cwd": "C:\\UnrealEngine"
 			}
 		},
 		{
@@ -458,7 +188,7 @@
 				"Tetris3D",
 				"Win64",
 				"Shipping",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
@@ -467,7 +197,7 @@
 			],
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
+				"cwd": "C:\\UnrealEngine"
 			}
 		},
 		{
@@ -478,13 +208,13 @@
 				"Tetris3D",
 				"Win64",
 				"Shipping",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
+				"cwd": "C:\\UnrealEngine"
 			}
 		},
 		{
@@ -495,13 +225,13 @@
 				"Tetris3D",
 				"Win64",
 				"Test",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
+				"cwd": "C:\\UnrealEngine"
 			}
 		},
 		{
@@ -512,7 +242,7 @@
 				"Tetris3D",
 				"Win64",
 				"Test",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
@@ -521,7 +251,7 @@
 			],
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
+				"cwd": "C:\\UnrealEngine"
 			}
 		},
 		{
@@ -532,13 +262,13 @@
 				"Tetris3D",
 				"Win64",
 				"Test",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
+				"cwd": "C:\\UnrealEngine"
 			}
 		},
 		{
@@ -549,13 +279,13 @@
 				"Tetris3DEditor",
 				"Win64",
 				"Debug",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
+				"cwd": "C:\\UnrealEngine"
 			}
 		},
 		{
@@ -566,7 +296,7 @@
 				"Tetris3DEditor",
 				"Win64",
 				"Debug",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
@@ -575,7 +305,7 @@
 			],
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
+				"cwd": "C:\\UnrealEngine"
 			}
 		},
 		{
@@ -586,13 +316,13 @@
 				"Tetris3DEditor",
 				"Win64",
 				"Debug",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
+				"cwd": "C:\\UnrealEngine"
 			}
 		},
 		{
@@ -603,13 +333,13 @@
 				"Tetris3DEditor",
 				"Win64",
 				"DebugGame",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
+				"cwd": "C:\\UnrealEngine"
 			}
 		},
 		{
@@ -620,7 +350,7 @@
 				"Tetris3DEditor",
 				"Win64",
 				"DebugGame",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
@@ -629,7 +359,7 @@
 			],
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
+				"cwd": "C:\\UnrealEngine"
 			}
 		},
 		{
@@ -640,13 +370,13 @@
 				"Tetris3DEditor",
 				"Win64",
 				"DebugGame",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
+				"cwd": "C:\\UnrealEngine"
 			}
 		},
 		{
@@ -657,13 +387,13 @@
 				"Tetris3DEditor",
 				"Win64",
 				"Development",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
+				"cwd": "C:\\UnrealEngine"
 			}
 		},
 		{
@@ -674,7 +404,7 @@
 				"Tetris3DEditor",
 				"Win64",
 				"Development",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
@@ -683,7 +413,7 @@
 			],
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
+				"cwd": "C:\\UnrealEngine"
 			}
 		},
 		{
@@ -694,13 +424,13 @@
 				"Tetris3DEditor",
 				"Win64",
 				"Development",
-				"C:\\Users\\ACER\\Documents\\GitHub\\Tetris3D\\Tetris3D.uproject",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
 				"-waitmutex"
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "C:\\Program Files\\Epic Games\\UE_4.20"
+				"cwd": "C:\\UnrealEngine"
 			}
 		}
 	]

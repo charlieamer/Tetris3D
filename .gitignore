@@ -75,3 +75,7 @@ Plugins/*/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+# VsCode workspace
+.vscode/*
+Tetris3D.code-workspace

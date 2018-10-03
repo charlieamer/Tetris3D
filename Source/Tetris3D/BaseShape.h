@@ -8,6 +8,7 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FShapeMovedDelegate);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FShapeInitializedDelegate);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FShapeIsDone, ABaseShape*, FinishedShape);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FShapeRotatedDelegate, FVector, Axis);
 
 UCLASS(Blueprintable)
@@ -71,6 +72,11 @@ protected:
 	UFUNCTION(Server, Reliable, WithValidation)
 	void Server_TryRotateShape(FIntVector Axis, int Amount);
 
+	UFUNCTION(Server, Reliable, WithValidation)
+	void Server_Drop();
+
+	void Drop();
+
 	void RotateShapeWithRotation(FIntVector Axis, int Amount);
 	void RotateShapeWithRotation(FIntVector Axis, int Amount, float RotationZ);
 
@@ -108,7 +114,11 @@ protected:
 	UFUNCTION()
 	void ParentShapeRotated(FVector Axis);
 
-public:	
+public:
+
+	UPROPERTY(BlueprintReadOnly)
+	bool bWasDropped;
+
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -134,4 +144,7 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FShapeRotatedDelegate ShapeRotated;
+
+	UPROPERTY(BlueprintAssignable, BlueprintCallable)
+	FShapeIsDone ShapeDone;
 };

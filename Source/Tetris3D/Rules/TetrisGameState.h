@@ -6,6 +6,8 @@
 #include "GameFramework/GameStateBase.h"
 #include "TetrisGameState.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnShapeAppliedDelegate, ABaseShape*, AppliedShape);
+
 /**
  * 
  */
@@ -28,4 +30,7 @@ public:
 	int GetSizeZ();
 	float GetDropSpeed();
 	void SetBlockAtPosition(const FIntVector& Position);
+
+	UPROPERTY(BlueprintAssignable)
+	FOnShapeAppliedDelegate ShapeApplied;
 };
