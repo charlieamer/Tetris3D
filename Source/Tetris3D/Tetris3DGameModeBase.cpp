@@ -54,4 +54,14 @@ void ATetris3DGameModeBase::ApplyShape(ABaseShape* Shape)
 	}
 	SpawnNewShape(Shape->GetController());
 	GetTetrisState()->ShapeApplied.Broadcast(Shape);
+	CheckForFinishedLevels();
+}
+
+void ATetris3DGameModeBase::CheckForFinishedLevels()
+{
+	TArray<int> Destroyed = GetTetrisState()->RemoveFinishedLevels();
+	if (Destroyed.Num() > 0)
+	{
+		GetTetrisState()->LevelFilled.Broadcast(Destroyed);
+	}
 }

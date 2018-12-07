@@ -7,6 +7,7 @@
 #include <Components/StaticMeshComponent.h>
 #include <TetrisStatics.h>
 #include <Materials/MaterialInstance.h>
+#include <GameFramework/PlayerStart.h>
 
 ABasicAppliedShapeHolder::ABasicAppliedShapeHolder()
 {
@@ -21,6 +22,7 @@ void ABasicAppliedShapeHolder::BeginPlay()
 	if (ensure(GameState))
 	{
 		GameState->ShapeApplied.AddDynamic(this, &ABasicAppliedShapeHolder::ShapeApplied);
+		GameState->LevelFilled.AddDynamic(this, &ABasicAppliedShapeHolder::OnLevelsDestroyed);
 	}	
 }
 
@@ -33,15 +35,70 @@ void ABasicAppliedShapeHolder::ShapeDone(ABaseShape* Shape)
 {
 	if (ensure(MeshToSpawn))
 	{
-		for (FIntVector BlockLocation : Shape->GetShape())
+		if (LevelDestroyQueue.Num() == 0)
 		{
-			UStaticMeshComponent* Mesh = NewObject<UStaticMeshComponent>(this);
-			Mesh->RegisterComponent();
-			Mesh->SetStaticMesh(MeshToSpawn);
-			Mesh->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
-			SetupBlockSceneComponent(Mesh, GetWorld(), BlockLocation + Shape->GetPosition());
-			// Mesh->SetMaterial(0, Shape->MaterialToUse);
+			for (FIntVector BlockLocation : Shape->GetShape())
+			{
+				AddCube(BlockLocation + Shape->GetPosition());
+			}
+		}
+		else
+		{
+			TArray<UStaticMeshComponent*> CurrentMeshes;
+			GetComponents<UStaticMeshComponent>(CurrentMeshes);
+			for (UStaticMeshComponent* MeshComponent : CurrentMeshes)
+			{
+				MeshComponent->DestroyComponent();
+			}
+			ATetrisGameState* GameState = Cast<ATetrisGameState>(GetWorld()->GetGameState());
+			if (ensure(GameState))
+			{
+				for (int z=0; z<GameState->GetSizeZ(); z++)
+				{
+					bool ShouldDestroy = LevelDestroyQueue.Contains(z);
+					APlayerStart* PlayerStart = *TObjectIterator<APlayerStart>();
+					for (int x=0; x<GameState->GetSizeX(); x++)
+					{
+						for (int y=0; y<GameState->GetSizeY(); y++)
+						{
+							FIntVector Location(x, y, z);
+							if (GameState->IsUsed(x, y, z))
+							{
+								AddCube(Location);
+							}
+							if (ShouldDestroy && ensure(ActorWhenBlockDestroyed))
+							{
+								FVector EffectLocation = GetBlockWorldLocation(PlayerStart, GameState->GetBlockSize(), Location);
+								FRotator EffectRotation;
+								AActor* SpawnedEffect = GetWorld()->SpawnActor<AActor>(
+									ActorWhenBlockDestroyed,
+									EffectLocation,
+									EffectRotation
+								);
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 	Shape->Destroy();
+}
+
+void ABasicAppliedShapeHolder::OnLevelsDestroyed(TArray<int> Levels)
+{
+	for (int Level : Levels)
+	{
+		LevelDestroyQueue.AddUnique(Level);
+	}
+}
+
+void ABasicAppliedShapeHolder::AddCube(FIntVector Location)
+{
+	UStaticMeshComponent* Mesh = NewObject<UStaticMeshComponent>(this);
+	Mesh->RegisterComponent();
+	Mesh->SetStaticMesh(MeshToSpawn);
+	Mesh->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
+	SetupBlockSceneComponent(Mesh, GetWorld(), Location);
+	// Mesh->SetMaterial(0, Shape->MaterialToUse);
 }

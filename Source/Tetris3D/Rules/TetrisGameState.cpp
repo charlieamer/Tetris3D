@@ -69,3 +69,50 @@ void ATetrisGameState::SetBlockAtPosition(const FIntVector& Position)
 		Fields[GetIndex(Position.X, Position.Y, Position.Z)] = true;
 	}
 }
+
+TArray<int> ATetrisGameState::RemoveFinishedLevels()
+{
+	TArray<int> Ret;
+	for (int z=SizeZ-1; z>=0; z--)
+	{
+		int FilledCount = 0;
+		for (int x=0; x<SizeX; x++)
+		{
+			for (int y=0; y<SizeY; y++)
+			{
+				FilledCount += Fields[GetIndex(x, y, z)];
+			}
+		}
+		if (FilledCount == SizeX * SizeY)
+		{
+			Ret.Add(z);
+			DropOneFloor(z);
+			z--;
+		}
+	}
+	return Ret;
+}
+
+void ATetrisGameState::DropOneFloor(int AboveLevel)
+{
+	for (int z=AboveLevel; z<SizeZ; z++)
+	{
+		for (int x=0; x<SizeX; x++)
+		{
+			for (int y=0; y<SizeY; y++)
+			{
+				Fields[GetIndex(x, y, z)] = (z == SizeZ - 1) ? false : Fields[GetIndex(x, y, z + 1)];
+			}
+		}
+	}
+}
+
+bool ATetrisGameState::IsUsed(const FIntVector& Position)
+{
+	return !IsValidPosition(Position);
+}
+
+bool ATetrisGameState::IsUsed(int X, int Y, int Z)
+{
+	return !IsValidPosition(X, Y, Z);
+}

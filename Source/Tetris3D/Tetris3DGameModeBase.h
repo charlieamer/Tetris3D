@@ -28,6 +28,8 @@ protected:
 	int TerrainSizeZ = 10;
 	UPROPERTY(EditDefaultsOnly)
 	float BlockSize = 100.0f;
+
+	void CheckForFinishedLevels();
 public:
 	void InitGameState() override;
 	ATetris3DGameModeBase();

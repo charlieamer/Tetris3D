@@ -7,6 +7,7 @@
 #include "TetrisGameState.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnShapeAppliedDelegate, ABaseShape*, AppliedShape);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnLevelFinishedDelegate, TArray<int>, FinishedLevels);
 
 /**
  * 
@@ -20,17 +21,25 @@ class TETRIS3D_API ATetrisGameState : public AGameStateBase
 	int GetIndex(int X, int Y, int Z);
 	float BlockSize;
 	float DropSpeed;
+
+	void DropOneFloor(int AboveLevel);
+
 public:
 	void Initialize(int SizeX, int SizeY, int SizeZ, float BlockSize, float DropSpeed);
 	bool IsValidPosition(int X, int Y, int Z);
 	bool IsValidPosition(const FIntVector& Position);
+	bool IsUsed(int X, int Y, int Z);
+	bool IsUsed(const FIntVector& Position);
 	float GetBlockSize();
 	int GetSizeX();
 	int GetSizeY();
 	int GetSizeZ();
 	float GetDropSpeed();
 	void SetBlockAtPosition(const FIntVector& Position);
+	TArray<int> RemoveFinishedLevels();
 
 	UPROPERTY(BlueprintAssignable)
 	FOnShapeAppliedDelegate ShapeApplied;
+	UPROPERTY(BlueprintAssignable)
+	FOnLevelFinishedDelegate LevelFilled;
 };
