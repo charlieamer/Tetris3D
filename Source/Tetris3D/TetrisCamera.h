@@ -18,9 +18,9 @@ class TETRIS3D_API ATetrisCamera : public ACameraActor
 	GENERATED_BODY()
 	ATetrisPlayerState* PlayerState = nullptr;
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 	float Distance = 1000;
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 	float Elevation = 45;
 
 

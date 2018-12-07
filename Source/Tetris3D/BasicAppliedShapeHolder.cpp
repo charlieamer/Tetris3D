@@ -66,7 +66,8 @@ void ABasicAppliedShapeHolder::ShapeDone(ABaseShape* Shape)
 							{
 								AddCube(Location);
 							}
-							if (ShouldDestroy && ensure(ActorWhenBlockDestroyed))
+							if (ShouldDestroy && ensure(ActorWhenBlockDestroyed) &&
+								(x == 0 || y == 0 || x == GameState->GetSizeX() - 1 || y == GameState->GetSizeY() - 1))
 							{
 								FVector EffectLocation = GetBlockWorldLocation(PlayerStart, GameState->GetBlockSize(), Location);
 								FRotator EffectRotation;
@@ -79,6 +80,7 @@ void ABasicAppliedShapeHolder::ShapeDone(ABaseShape* Shape)
 						}
 					}
 				}
+				LevelDestroyQueue.Reset();
 			}
 		}
 	}

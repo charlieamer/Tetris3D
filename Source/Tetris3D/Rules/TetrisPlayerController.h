@@ -18,7 +18,7 @@ class TETRIS3D_API ATetrisPlayerController : public APlayerController
 protected:
 	void BeginPlay() override;
 
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly)
 	ATetrisCamera* TetrisPlayerCamera;
 
 public:

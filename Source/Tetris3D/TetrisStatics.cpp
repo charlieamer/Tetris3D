@@ -7,13 +7,15 @@
 #include <Rules/TetrisGameState.h>
 #include <EngineUtils.h>
 
+float CorrectModulo(float a, float b)
+{
+	return FMath::Fmod(FMath::Fmod(a, b) + b, b);
+}
+
 int GetRotationQuadrant(float RotationZ)
 {
-	float Modded = FMath::Fmod(RotationZ, 360.0f);
-	if (RotationZ < 0)
-	{
-		Modded = 360.0f - Modded;
-	}
+	
+	float Modded = CorrectModulo(RotationZ, 360);
 	if (Modded < 45.0f || Modded >= 315.0f)
 	{
 		return 3;
