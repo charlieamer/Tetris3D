@@ -11,7 +11,7 @@ void ATetrisCamera::UpdateCamera()
 	if (ensureMsgf(PlayerState, TEXT("Player state not set"))) {
 		float RotationZD = FMath::DegreesToRadians(PlayerState->GetRotationZ());
 		float ElevationD = FMath::DegreesToRadians(Elevation);
-		UE_LOG(LogTemp, Warning, TEXT("%f %f %f"), RotationZD, FMath::Cos(RotationZD), FMath::Sin(RotationZD))
+		// UE_LOG(LogTemp, Warning, TEXT("%f %f %f"), RotationZD, FMath::Cos(RotationZD), FMath::Sin(RotationZD))
 		FVector Location(
 			FMath::Cos(RotationZD) * Distance * FMath::Cos(ElevationD),
 			FMath::Sin(RotationZD) * Distance * FMath::Cos(ElevationD),

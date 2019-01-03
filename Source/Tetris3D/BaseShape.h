@@ -114,6 +114,8 @@ protected:
 	UFUNCTION()
 	void ParentShapeRotated(FVector Axis);
 
+	bool HasCommonPositionsInMove(TArray<FIntVector> Shape1, TArray<FIntVector> Shape2, FIntVector Shape2Move);
+
 public:
 
 	UPROPERTY(BlueprintReadOnly)

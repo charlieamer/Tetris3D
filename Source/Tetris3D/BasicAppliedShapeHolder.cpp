@@ -70,12 +70,10 @@ void ABasicAppliedShapeHolder::ShapeDone(ABaseShape* Shape)
 								(x == 0 || y == 0 || x == GameState->GetSizeX() - 1 || y == GameState->GetSizeY() - 1))
 							{
 								FVector EffectLocation = GetBlockWorldLocation(PlayerStart, GameState->GetBlockSize(), Location);
-								FRotator EffectRotation;
 								AActor* SpawnedEffect = GetWorld()->SpawnActor<AActor>(
-									ActorWhenBlockDestroyed,
-									EffectLocation,
-									EffectRotation
+									ActorWhenBlockDestroyed
 								);
+								SpawnedEffect->SetActorLocation(EffectLocation);
 							}
 						}
 					}

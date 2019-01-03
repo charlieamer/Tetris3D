@@ -280,16 +280,54 @@ void ABaseShape::DoRotateShape(FIntVector Axis, int Amount)
 	}
 }
 
+bool ABaseShape::HasCommonPositionsInMove(TArray<FIntVector> Shape1, TArray<FIntVector> Shape2, FIntVector Shape2Move)
+{
+	TArray<FIntVector> ClonedShape2;
+	for (FIntVector ThePosition : Shape2)
+	{
+		ClonedShape2.Add(ThePosition + Shape2Move);
+	}
+	for (const FIntVector& T1 : Shape1)
+	{
+		if (ClonedShape2.Contains(T1))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 void ABaseShape::Server_TryRotateShape_Implementation(FIntVector Axis, int Amount)
 {
 	DoRotateShape(Axis, Amount);
+	bool bDidRotate = false;
 	if (!IsValidPosition())
 	{
-		DoRotateShape(Axis, -Amount);
+		// Try move shape to accomodate for rotation
+		TArray<FIntVector> Directions = { FIntVector(1, 0, 0), FIntVector(0, 1, 0), FIntVector(-1, 0, 0), FIntVector(0, -1, 0) };
+		for (int i=0; i<4 && !bDidRotate; i++)
+		{
+			for (FIntVector Direction : Directions)
+			{
+				Direction *= i;
+				if (HasCommonPositionsInMove(Shape, Shape, Direction) && TryMoveShape(Direction))
+				{
+					bDidRotate = true;
+					break;
+				}
+			}
+		}
 	}
 	else
 	{
+		bDidRotate = true;
+	}
+	if (bDidRotate)
+	{
 		ShapeRotated.Broadcast(FVector(Axis * Amount));
+	} else
+	{
+		DoRotateShape(Axis, -Amount);
 	}
 }
 
