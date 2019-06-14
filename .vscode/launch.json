@@ -72,8 +72,7 @@
 			"preLaunchTask": "Tetris3DEditor Win64 Debug Build",
 			"program": "C:\\UnrealEngine\\Engine\\Binaries\\Win64\\UE4Editor-Win64-Debug.exe",
 			"args": [
-				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
-				"-debug"
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject"
 			],
 			"cwd": "C:\\UnrealEngine",
 			"stopAtEntry": false,
@@ -87,8 +86,7 @@
 			"preLaunchTask": "Tetris3DEditor Win64 DebugGame Build",
 			"program": "C:\\UnrealEngine\\Engine\\Binaries\\Win64\\UE4Editor.exe",
 			"args": [
-				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
-				"-debug"
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject"
 			],
 			"cwd": "C:\\UnrealEngine",
 			"stopAtEntry": false,

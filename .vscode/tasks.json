@@ -272,6 +272,276 @@
 			}
 		},
 		{
+			"label": "Tetris3D Switch Debug Build",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"Tetris3D",
+				"Switch",
+				"Debug",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "C:\\UnrealEngine"
+			}
+		},
+		{
+			"label": "Tetris3D Switch Debug Rebuild",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"Tetris3D",
+				"Switch",
+				"Debug",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"Tetris3D Switch Debug Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "C:\\UnrealEngine"
+			}
+		},
+		{
+			"label": "Tetris3D Switch Debug Clean",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Clean.bat",
+			"args": [
+				"Tetris3D",
+				"Switch",
+				"Debug",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "C:\\UnrealEngine"
+			}
+		},
+		{
+			"label": "Tetris3D Switch DebugGame Build",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"Tetris3D",
+				"Switch",
+				"DebugGame",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "C:\\UnrealEngine"
+			}
+		},
+		{
+			"label": "Tetris3D Switch DebugGame Rebuild",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"Tetris3D",
+				"Switch",
+				"DebugGame",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"Tetris3D Switch DebugGame Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "C:\\UnrealEngine"
+			}
+		},
+		{
+			"label": "Tetris3D Switch DebugGame Clean",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Clean.bat",
+			"args": [
+				"Tetris3D",
+				"Switch",
+				"DebugGame",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "C:\\UnrealEngine"
+			}
+		},
+		{
+			"label": "Tetris3D Switch Development Build",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"Tetris3D",
+				"Switch",
+				"Development",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "C:\\UnrealEngine"
+			}
+		},
+		{
+			"label": "Tetris3D Switch Development Rebuild",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"Tetris3D",
+				"Switch",
+				"Development",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"Tetris3D Switch Development Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "C:\\UnrealEngine"
+			}
+		},
+		{
+			"label": "Tetris3D Switch Development Clean",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Clean.bat",
+			"args": [
+				"Tetris3D",
+				"Switch",
+				"Development",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "C:\\UnrealEngine"
+			}
+		},
+		{
+			"label": "Tetris3D Switch Shipping Build",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"Tetris3D",
+				"Switch",
+				"Shipping",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "C:\\UnrealEngine"
+			}
+		},
+		{
+			"label": "Tetris3D Switch Shipping Rebuild",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"Tetris3D",
+				"Switch",
+				"Shipping",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"Tetris3D Switch Shipping Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "C:\\UnrealEngine"
+			}
+		},
+		{
+			"label": "Tetris3D Switch Shipping Clean",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Clean.bat",
+			"args": [
+				"Tetris3D",
+				"Switch",
+				"Shipping",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "C:\\UnrealEngine"
+			}
+		},
+		{
+			"label": "Tetris3D Switch Test Build",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"Tetris3D",
+				"Switch",
+				"Test",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "C:\\UnrealEngine"
+			}
+		},
+		{
+			"label": "Tetris3D Switch Test Rebuild",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"Tetris3D",
+				"Switch",
+				"Test",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"Tetris3D Switch Test Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "C:\\UnrealEngine"
+			}
+		},
+		{
+			"label": "Tetris3D Switch Test Clean",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Clean.bat",
+			"args": [
+				"Tetris3D",
+				"Switch",
+				"Test",
+				"C:\\Users\\USER\\Documents\\Unreal Projects\\Tetris3D\\Tetris3D.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "C:\\UnrealEngine"
+			}
+		},
+		{
 			"label": "Tetris3DEditor Win64 Debug Build",
 			"group": "build",
 			"command": "Engine\\Build\\BatchFiles\\Build.bat",
